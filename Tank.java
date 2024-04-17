@@ -1,35 +1,28 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
-import java.util.ArrayList;
 
-public class Tank extends JComponent {
-
-    protected int x,y;
-    protected int dx, dy;
-
+public class Tank extends JComponent { //base tank class,pretty simple, tank draws itself, unlike Pacman
+    protected int x;
+    protected int y;
+    protected int dx;
+    protected int dy;
     protected int speed;
-    protected int hp;
 
-    public void moveTank(){
-    }
-
-
-    public Tank(int speed){
+    public Tank(int speed) {
         this.speed = speed;
-        this.hp = 10;
-
+        setPreferredSize(new Dimension(30, 30));
     }
 
-    public Tank(int speed, int hp){
-        this.speed = speed;
-        this.hp = hp;
+    @Override
+    protected void paintComponent(Graphics g) {
+        //super.paintComponent(g);
+        g.setColor(Color.RED);
+        g.fillRect(x, y, 30, 30);
     }
 
-    public int getX(){
-        return x;
-    }
-    public int getY(){
-        return y;
+    public void setPosition(int x, int y) {
+        this.x = x;
+        this.y = y;
+        //repaint();
     }
 }

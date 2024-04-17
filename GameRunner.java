@@ -1,27 +1,16 @@
 import javax.swing.*;
+import java.awt.*;
 
-public class GameRunner{
-    public static void main(String[] args){
-
+public class GameRunner { // sets up the game
+    public static void main(String[] args) {
         JFrame frame = new JFrame("Tanks");
-        frame.setFocusable(true);
-        frame.setVisible(true); 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
         Board board = new Board();
-        
-        board.initBoard();
-        board.initVariables();
-        board.setFocusable(true);
 
-        UserTank t1 = new UserTank(5);
-
-        board.addUserTank(t1);
-
-    
-        frame.add(board); 
-        frame.pack(); 
+        frame.add(board);
+        frame.pack();
         frame.setLocationRelativeTo(null);
-        
-
+        frame.setVisible(true);
     }
 }

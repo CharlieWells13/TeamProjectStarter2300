@@ -1,60 +1,34 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
-import java.util.ArrayList;
-
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Board extends JPanel {
-    private int tankX = 0;
-    private int tankY = 0;
-    private int speed = 5;
-
     private Timer timer;
-    private ArrayList<Tank> tanks = new ArrayList<>();
+    private UserTank userTank;
 
     public Board() {
-        setPreferredSize(new Dimension(800, 600));
-        initBoard();
-        initVariables();
-        setFocusTraversalPolicy(new ContainerOrderFocusTraversalPolicy());
-        setFocusable(true);
+        setPreferredSize(new Dimension(800, 600)); // setiing up the board
+        setBackground(Color.BLACK);
+        setLayout(new BorderLayout());
 
-        JLabel infoLabel = new JLabel("Test");
-        infoLabel.setSize(100, 20);
-        infoLabel.setLocation(10, 10); // Adjust location as needed
-        add(infoLabel);
-    }
+        userTank = new UserTank(5);
 
-    public void addTank(Tank tank){
-        tanks.add(tank);
-        this.add(tank);
-        tank.requestFocus();
-    }
+        add(userTank, BorderLayout.CENTER);
 
-    public void addUserTank(UserTank tank) {
-        tanks.add(tank);
-        tank.addTankKeyAdapter();
-        add(tank);
-        tank.setVisible(true);
-        repaint();
-    }
-
-
-    public void initBoard() {
-        setBackground(Color.black);
-        setDoubleBuffered(true);
-    }
-
-    public void initVariables() {
-        timer = new Timer(40, new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-            for (Tank tank : tanks) {
-                tank.moveTank();
-            }
-            repaint();
-            }
+        timer = new Timer (40, new ActionListener() { //just like pacman, every 40 milliseconds, it calls move tank and refreshes the screen
+			public void actionPerformed(ActionEvent e) {
+                userTank.moveTank();
+				repaint();				
+			}
         });
         timer.start();
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) { // this is called by repaint
+        super.paintComponent(g);
+        userTank.paintComponent(g);
     }
 }
 
