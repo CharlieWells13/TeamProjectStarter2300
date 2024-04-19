@@ -14,7 +14,7 @@ public class Board extends JPanel {
 
         userTank = new UserTank(5);
 
-        add(userTank, BorderLayout.CENTER);
+        add(userTank, BorderLayout.CENTER); 
 
         timer = new Timer (40, new ActionListener() { //just like pacman, every 40 milliseconds, it calls move tank and refreshes the screen
 			public void actionPerformed(ActionEvent e) {
