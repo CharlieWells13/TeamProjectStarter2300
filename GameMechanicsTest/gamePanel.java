@@ -66,6 +66,20 @@ public class gamePanel extends JPanel implements ActionListener{
         }
     }
 
+    public void drawNextLevel() { 
+        walls = new ArrayList<Wall>();
+        grabbables = new ArrayList<Grabbable>();
+        try {
+            lv.loadLevel();
+        } catch (IOException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
+        currentLevel = lv.getCurrentLevel();
+        makeLevel();
+
+    }
+
 
 
     @Override
@@ -103,6 +117,10 @@ public class gamePanel extends JPanel implements ActionListener{
         }
         if(e.getKeyChar() == 'q'){
             player.toggleMode();
+        }
+        if (e.getKeyChar() == 'n') { //can be removed later, meant for debugging
+            drawNextLevel();
+            
         }
     }
 
