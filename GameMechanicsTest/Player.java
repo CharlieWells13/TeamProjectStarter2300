@@ -46,6 +46,11 @@ public class Player {
             e.printStackTrace();
         }
     }
+    
+    public void setPos(int newX, int newY) {
+        this.x = newX;
+        this.y = newY;
+    }
 
     // switches player movement mode
     public void toggleMode(){
