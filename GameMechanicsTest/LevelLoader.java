@@ -15,14 +15,14 @@ public class LevelLoader {
         String[] levelRow;
         int currentRow = 0;
 
-        levelHead = "levels\\" + levelHead + lvlCount + ".csv";
+        levelHead = "levels\\" + levelHead + lvlCount + ".tsv";
         System.out.println(levelHead);
         lvlCount++;
         File level = new File(levelHead);
         Scanner sc = new Scanner(level);
         while (sc.hasNext()) {
             next = sc.nextLine();
-            levelRow = next.split(",");
+            levelRow = next.split("\t");
             for(int i = 0; i < 50; i++) { //converts Strings from csv to ints
                 this.level[currentRow][i] = Integer.valueOf(levelRow[i]);
             }

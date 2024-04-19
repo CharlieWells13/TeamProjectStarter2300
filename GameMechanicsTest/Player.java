@@ -24,8 +24,8 @@ public class Player {
     Boolean keyRight = false;
     Boolean keySwitch = true;
 
-    int maxSpeed = 10;
-    int jumpPower = -10;
+    int maxSpeed = 5;
+    int jumpPower = -8;
     double gravity = 0.4;
     int climbingModeSlowDown = 4;
 

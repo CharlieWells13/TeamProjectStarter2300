@@ -126,6 +126,9 @@ public class gamePanel extends JPanel implements ActionListener{
             drawNextLevel();
             
         }
+        if (e.getKeyChar() == 'r') { //resets current level, also meant for debugging
+            makeLevel();
+        }
     }
 
     public void keyReleased(KeyEvent e){
