@@ -23,6 +23,7 @@ public class gamePanel extends JPanel implements ActionListener{
 
     public gamePanel(){
         player = new Player(300, 200, this);
+
         lv = new LevelLoader();
         try {
             lv.loadLevel();
@@ -32,7 +33,6 @@ public class gamePanel extends JPanel implements ActionListener{
         }
         
         currentLevel = lv.getCurrentLevel();
-
         makeLevel();
 
         gameTimer = new Timer();
