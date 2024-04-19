@@ -3,13 +3,13 @@ import java.util.Scanner;
 
 public class LevelLoader {
     private int[][] level;
-    private int lvlCount;
+    private static int lvlCount; //made static in case another levelLoader object needs to be
 
     public LevelLoader() {
-        this.level = new int[100][100];
-        this.lvlCount = 0;
+        this.level = new int[50][50];
+        LevelLoader.lvlCount = 0;
     }
-    public void loadLevel() throws IOException {
+    public void loadLevel() throws IOException { 
         String levelHead = "level";
         String next;
         String[] levelRow;
@@ -23,10 +23,10 @@ public class LevelLoader {
         while (sc.hasNext()) {
             next = sc.nextLine();
             levelRow = next.split(",");
-            for(int i = 0; i < 100; i++) {
+            for(int i = 0; i < 50; i++) { //converts Strings from csv to ints
                 this.level[currentRow][i] = Integer.valueOf(levelRow[i]);
             }
-            currentRow++;
+            currentRow++; //increments current row
         }
         sc.close();
 

@@ -34,13 +34,13 @@ public class Player {
         this.x = x;
         this.y = y;
 
-        this.width = 50;
-        this.height = 100;
+        this.width = 32;
+        this.height = 32;
         hitBox = new Rectangle(x, y, width, height);
 
         // get player sprite
         try{
-            playerSprite = ImageIO.read(new File("testPlayer.png"));
+            playerSprite = ImageIO.read(new File("placeholder.png"));
         }
         catch(IOException e){
             e.printStackTrace();

@@ -6,11 +6,15 @@ import java.util.TimerTask;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class gamePanel extends JPanel implements ActionListener{
     
     Player player;
+
+    LevelLoader lv;
+    int[][] currentLevel;
 
     ArrayList<Wall> walls = new ArrayList<Wall>();
     ArrayList<Grabbable> grabbables = new ArrayList<Grabbable>();
@@ -19,9 +23,17 @@ public class gamePanel extends JPanel implements ActionListener{
 
     public gamePanel(){
         player = new Player(300, 200, this);
+        lv = new LevelLoader();
+        try {
+            lv.loadLevel();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        
+        currentLevel = lv.getCurrentLevel();
 
-        makeWalls();
-        makeGrabbables();
+        makeLevel();
 
         gameTimer = new Timer();
         gameTimer.schedule(new TimerTask() {
@@ -36,25 +48,25 @@ public class gamePanel extends JPanel implements ActionListener{
     }
 
     // Load ArrayList with walls to be added to level
-    public void makeWalls(){
-        for(int i = 50; i <= 550; i += 50){
-            walls.add(new Wall(i, 350, 50, 50));
+    public void makeLevel(){
+        int xPos = 0;
+        int yPos = 0;
+        for (int[] curRow : this.currentLevel) {
+            for (int curBox : curRow) {
+                if (curBox == 1) {
+                    walls.add(new Wall (xPos, yPos, 16, 16));
+                }
+                else if (curBox == 2) {
+                    grabbables.add(new Grabbable(xPos, yPos, 16, 16));
+                }
+                xPos = xPos + 16;
+            }
+            xPos = 0;
+            yPos = yPos + 16;
         }
-        walls.add(new Wall(0, 350, 50, 50));
-        walls.add(new Wall(0, 300, 50, 50));
-        walls.add(new Wall(0, 250, 50, 50));
-        walls.add(new Wall(550, 300, 50, 50));
-        walls.add(new Wall(550, 250, 50, 50));
-        walls.add(new Wall(300, 150, 50, 30));
     }
 
-    public void makeGrabbables(){
-        for(int i = 350; i <= 550; i += 50){
-            for(int j = 0; j < 100; j += 50){
-                grabbables.add(new Grabbable(i, j, 50, 50));
-            }
-        }
-    }
+
 
     @Override
     public void actionPerformed(ActionEvent ae){

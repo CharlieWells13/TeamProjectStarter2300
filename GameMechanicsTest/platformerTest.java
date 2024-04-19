@@ -6,7 +6,7 @@ public class platformerTest{
 
     public static void main(String[] args) {
         mainFrame frame = new mainFrame();          // make new frame (extends JFrame)
-        frame.setSize(600, 400);
+        frame.setSize(900, 900);
         frame.setTitle("PlatformerTest");
 
         Dimension screenDimension = Toolkit.getDefaultToolkit().getScreenSize(); //get dimensions of screen
