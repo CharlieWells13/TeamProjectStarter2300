@@ -21,4 +21,10 @@ public abstract class LevelTile {
         g2d.drawRect(x, y, width, height);
         g2d.fillRect(x, y, width, height);
     }
+    public void collideX(Player player, LevelTile wall) {
+
+    }
+    public void collideY(Player player, LevelTile wall) {
+        
+    }
 }

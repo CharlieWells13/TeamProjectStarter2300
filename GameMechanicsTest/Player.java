@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
+import java.util.Timer;
 
 public class Player {
     
@@ -47,10 +48,27 @@ public class Player {
             e.printStackTrace();
         }
     }
-    
+    public int getX() {
+        return this.x;
+    }
+    public int getY() {
+        return this.y;
+    }
     public void setPos(int newX, int newY) {
         this.x = newX;
         this.y = newY;
+    }
+    public double getXSpeed() {
+        return this.xspeed;
+    }
+    public double getYSpeed() {
+        return this.yspeed;
+    }
+    public void setXSpeed(double newSpeed) {
+        this.xspeed = newSpeed;
+    }
+    public void setYSpeed(double newSpeed) {
+        this.yspeed = newSpeed;
     }
 
     // switches player movement mode
@@ -212,50 +230,23 @@ public class Player {
 
     // Collision checking
     public void CollisionCheck() {
+        
         // Horizontal Collision Checking
         hitBox.x += xspeed;
         for (LevelTile wall : panel.walls) {
             if (hitBox.intersects(wall.hitBox)) {
-                switch (wall.tileType) {
-                    
-                    case 1:
-                    
-                        hitBox.x -= xspeed;
-                        while (!wall.hitBox.intersects(hitBox)) {
-                            hitBox.x += Math.signum(xspeed);
-                        }
-                        hitBox.x -= Math.signum(xspeed);
-                        xspeed = 0;
-                        x = hitBox.x;
-                        break;
-
-                    case 7:
-                        hitBox.x -= xspeed;
-                        xspeed = xspeed * -1;
-                        yspeed += -4;
-                        break;
-            }
+                hitBox.x -= xspeed;
+                wall.collideX(this, wall);
+                x = hitBox.x;
         }
     }
         // Vertical Collision Checking
         hitBox.y += yspeed;
         for (LevelTile wall : panel.walls) {
             if (hitBox.intersects(wall.hitBox)) {
-                switch (wall.tileType) {
-                    case 1:
-                        hitBox.y -= yspeed;
-                        while (!wall.hitBox.intersects(hitBox)) {
-                            hitBox.y += Math.signum(yspeed);
-                        }
-                        hitBox.y -= Math.signum(yspeed);
-                        yspeed = 0;
-                        y = hitBox.y;
-                        break;
-                    case 7:
-                        hitBox.y -= yspeed;
-                        yspeed = -10;
-                    default:
-                }
+                hitBox.y -= yspeed;
+                wall.collideY(this, wall);
+                y = hitBox.y;
             }
         }
     }

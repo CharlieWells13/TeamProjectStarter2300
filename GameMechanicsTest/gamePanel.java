@@ -65,7 +65,9 @@ public class gamePanel extends JPanel implements ActionListener{
                 }
                 else if (curBox == 7) {
                     walls.add(new Bouncer (xPos, yPos, 16, 16));
-                    System.out.println("Added bouncer at " + xPos + yPos);
+                }
+                else if (curBox == 8) {
+                    walls.add(new Trapper(xPos, yPos, 16, 16));
                 }
                 xPos = xPos + 16;
             }

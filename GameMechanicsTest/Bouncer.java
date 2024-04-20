@@ -12,5 +12,12 @@ public class Bouncer extends LevelTile {
         g2d.drawRect(x, y, width, height);
         g2d.fillRect(x, y, width, height);
     }
+    public void collideX(Player player, LevelTile wall) {
+        player.setXSpeed(player.getXSpeed() *-1);
+        player.setYSpeed(player.getYSpeed() + -4);
+    }
+    public void collideY(Player player, LevelTile wall) {
+        player.setYSpeed(player.getYSpeed() + -10);
+    }
     
 }

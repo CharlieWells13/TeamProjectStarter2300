@@ -14,4 +14,19 @@ public class Wall extends LevelTile {
         g2d.drawRect(x, y, width, height);
         g2d.fillRect(x, y, width, height);
     }
+
+    public void collideX(Player player, LevelTile wall) {
+        while (!wall.hitBox.intersects(player.hitBox)) {
+            player.hitBox.x += Math.signum(player.getXSpeed());
+        }
+        player.hitBox.x -= Math.signum(player.getXSpeed());
+        player.setXSpeed(0);
+    }
+    public void collideY(Player player, LevelTile wall) {
+        while (!wall.hitBox.intersects(player.hitBox)) {
+            player.hitBox.y += Math.signum(player.getYSpeed());
+        }
+        player.hitBox.y -= Math.signum(player.getYSpeed());
+        player.setYSpeed(0);
+    }
 }
