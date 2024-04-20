@@ -2,10 +2,10 @@ import java.awt.Rectangle;
 import java.awt.Graphics2D;
 import java.awt.Color;
 
-public class LevelTile {
+public abstract class LevelTile {
     int x, y;
     int width, height;
-
+    int tileType;
     Rectangle hitBox;
 
     public LevelTile(int x, int y, int width, int height){
@@ -17,7 +17,7 @@ public class LevelTile {
     }
 
     public void draw(Graphics2D g2d){
-        g2d.setColor(Color.ORANGE);
+        g2d.setColor(Color.WHITE);
         g2d.drawRect(x, y, width, height);
         g2d.fillRect(x, y, width, height);
     }

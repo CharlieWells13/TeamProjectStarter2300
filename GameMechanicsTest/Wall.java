@@ -5,6 +5,7 @@ public class Wall extends LevelTile {
 
     public Wall(int x, int y, int width, int height){
         super(x, y, width, height);
+        this.tileType = 1;
     }
 
     @Override       // left as override cause idk how loading textures will be easiest

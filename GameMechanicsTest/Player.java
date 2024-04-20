@@ -1,3 +1,4 @@
+
 import java.awt.Rectangle;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -91,16 +92,18 @@ public class Player {
     public void HorizontalMovement(){
         if(keyLeft && keyRight || !keyLeft && !keyRight){
             if(!keySwitch){
-                xspeed *= 0.8;
+                xspeed *= 0.5;
             }
             else{
                 hitBox.y++;
-                for(Wall wall : panel.walls){
+                for(LevelTile wall : panel.walls){
+                    if (wall instanceof Wall) {
                     if(hitBox.intersects(wall.hitBox)){
-                        xspeed *= 0.8;
+                        xspeed *= 0.5;
                         break;
                     }
                 }
+            }
                 hitBox.y--;
             }
         }
@@ -110,12 +113,14 @@ public class Player {
             }
             else{
                 hitBox.y++;
-                for(Wall wall : panel.walls){
+                for(LevelTile wall : panel.walls){
+                    if (wall instanceof Wall) {
                     if(hitBox.intersects(wall.hitBox)){
                         xspeed--;
                         break;
                     }
                 }
+            }
                 hitBox.y--;
             }
         }
@@ -125,12 +130,14 @@ public class Player {
             }
             else{
                 hitBox.y++;
-                for(Wall wall : panel.walls){
+                for(LevelTile wall : panel.walls){
+                    if (wall instanceof Wall) {
                     if(hitBox.intersects(wall.hitBox)){
                         xspeed++;
                         break;
                     }
                 }
+            }
                 hitBox.y--;
             }
         }
@@ -163,13 +170,19 @@ public class Player {
             //up and down
             if(keyUp){      // only able to jump when on ground
                 hitBox.y++;
-                for(Wall wall : panel.walls){
-                    if(hitBox.intersects(wall.hitBox)){
-                        yspeed = jumpPower;
-                        break;
+                for(LevelTile wall : panel.walls){
+                    if (wall instanceof Wall) {
+                        if(hitBox.intersects(wall.hitBox)){
+                            yspeed = jumpPower;
+                            break;
+                        }
                     }
+
                 }
                 hitBox.y--;
+            }
+            else if (!keyUp && keyDown) {
+                yspeed++;
             }
             yspeed += gravity;    //gravity
         }
@@ -182,7 +195,7 @@ public class Player {
                 yspeed--;
             }
             else if(!keyUp && keyDown){
-                yspeed++;
+                yspeed+=2;
             }
             if(yspeed > -0.75 && yspeed < 0.75){
                 yspeed = 0;
@@ -198,35 +211,55 @@ public class Player {
     }
 
     // Collision checking
-    public void CollisionCheck(){
-        // Horizontal Collission Checking
+    public void CollisionCheck() {
+        // Horizontal Collision Checking
         hitBox.x += xspeed;
-        for(Wall wall : panel.walls){
-            if(hitBox.intersects(wall.hitBox)){
-                hitBox.x -= xspeed;
-                while(!wall.hitBox.intersects(hitBox)){
-                    hitBox.x += Math.signum(xspeed);
-                }
-                hitBox.x -= Math.signum(xspeed);
-                xspeed = 0;
-                x = hitBox.x;
-            }
-        }
-        
-        // Verticle Collission Checking
-        hitBox.y += yspeed;
-        for(Wall wall : panel.walls){
-            if(hitBox.intersects(wall.hitBox)){
-                hitBox.y -= yspeed;
-                while(!wall.hitBox.intersects(hitBox)){
-                    hitBox.y += Math.signum(yspeed);
-                }
-                hitBox.y -= Math.signum(yspeed);
-                yspeed = 0;
-                y = hitBox.y;
+        for (LevelTile wall : panel.walls) {
+            if (hitBox.intersects(wall.hitBox)) {
+                switch (wall.tileType) {
+                    
+                    case 1:
+                    
+                        hitBox.x -= xspeed;
+                        while (!wall.hitBox.intersects(hitBox)) {
+                            hitBox.x += Math.signum(xspeed);
+                        }
+                        hitBox.x -= Math.signum(xspeed);
+                        xspeed = 0;
+                        x = hitBox.x;
+                        break;
+
+                    case 7:
+                        hitBox.x -= xspeed;
+                        xspeed = xspeed * -1;
+                        yspeed += -4;
+                        break;
             }
         }
     }
+        // Vertical Collision Checking
+        hitBox.y += yspeed;
+        for (LevelTile wall : panel.walls) {
+            if (hitBox.intersects(wall.hitBox)) {
+                switch (wall.tileType) {
+                    case 1:
+                        hitBox.y -= yspeed;
+                        while (!wall.hitBox.intersects(hitBox)) {
+                            hitBox.y += Math.signum(yspeed);
+                        }
+                        hitBox.y -= Math.signum(yspeed);
+                        yspeed = 0;
+                        y = hitBox.y;
+                        break;
+                    case 7:
+                        hitBox.y -= yspeed;
+                        yspeed = -10;
+                    default:
+                }
+            }
+        }
+    }
+    
 
     public void draw(Graphics2D g2d){
         g2d.drawImage(playerSprite, x, y, panel);

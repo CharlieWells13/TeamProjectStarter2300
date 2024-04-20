@@ -16,7 +16,7 @@ public class gamePanel extends JPanel implements ActionListener{
     LevelLoader lv;
     int[][] currentLevel;
 
-    ArrayList<Wall> walls = new ArrayList<Wall>();
+    ArrayList<LevelTile> walls = new ArrayList<LevelTile>();
     ArrayList<Grabbable> grabbables = new ArrayList<Grabbable>();
     int spawnX;
     int spawnY;
@@ -63,6 +63,10 @@ public class gamePanel extends JPanel implements ActionListener{
                 else if (curBox == 3) {
                     player.setPos(xPos, yPos);
                 }
+                else if (curBox == 7) {
+                    walls.add(new Bouncer (xPos, yPos, 16, 16));
+                    System.out.println("Added bouncer at " + xPos + yPos);
+                }
                 xPos = xPos + 16;
             }
             xPos = 0;
@@ -71,7 +75,7 @@ public class gamePanel extends JPanel implements ActionListener{
     }
 
     public void drawNextLevel() { 
-        walls = new ArrayList<Wall>();
+        walls = new ArrayList<LevelTile>();
         grabbables = new ArrayList<Grabbable>();
         try {
             lv.loadLevel();
@@ -96,7 +100,7 @@ public class gamePanel extends JPanel implements ActionListener{
 
         Graphics2D g2d = (Graphics2D) g;
 
-        for(Wall wall : walls){
+        for(LevelTile wall : walls){
             wall.draw(g2d);
         }
         for(Grabbable grabbable : grabbables){

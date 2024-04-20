@@ -5,6 +5,7 @@ public class Grabbable extends LevelTile {
 
     public Grabbable(int x, int y, int width, int height){
         super(x, y, width, height);
+        this.tileType = 2;
     }
 
     @Override   // left as override cause idk how loading textures will be easiest
