@@ -31,6 +31,8 @@ public class Player {
     double gravity = 0.4;
     int climbingModeSlowDown = 4;
 
+    Boolean isInAir = false;
+
     public Player(int x, int y, gamePanel panel){
         this.panel = panel;
         this.x = x;
@@ -96,6 +98,7 @@ public class Player {
         HorizontalMovement();
         VerticleMovement();
         CollisionCheck();
+        airBornCheck();
 
         modeCheck();
 
@@ -165,11 +168,13 @@ public class Player {
         }
 
         if(keySwitch){
-            if(xspeed > maxSpeed){
-                xspeed = maxSpeed;
-            }
-            else if(xspeed < -maxSpeed){
-                xspeed = -maxSpeed;
+            if(!isInAir){
+                if(xspeed > maxSpeed){
+                    xspeed = maxSpeed;
+                }
+                else if(xspeed < -maxSpeed){
+                    xspeed = -maxSpeed;
+                }
             }
         }
         else{
@@ -187,17 +192,9 @@ public class Player {
         if(keySwitch){
             //up and down
             if(keyUp){      // only able to jump when on ground
-                hitBox.y++;
-                for(LevelTile wall : panel.walls){
-                    if (wall instanceof Wall) {
-                        if(hitBox.intersects(wall.hitBox)){
-                            yspeed = jumpPower;
-                            break;
-                        }
-                    }
-
+                if(!isInAir){
+                    yspeed = jumpPower;
                 }
-                hitBox.y--;
             }
             else if (!keyUp && keyDown) {
                 yspeed++;
@@ -251,6 +248,19 @@ public class Player {
         }
     }
     
+    public void airBornCheck(){
+        hitBox.y++;
+        isInAir = true;
+        for(LevelTile wall : panel.walls){
+            if (wall instanceof Wall) {
+                if(hitBox.intersects(wall.hitBox)){
+                    isInAir = false;
+                    break;
+                }
+            }
+        }
+        hitBox.y--;
+    }
 
     public void draw(Graphics2D g2d){
         g2d.drawImage(playerSprite, x, y, panel);
