@@ -15,7 +15,7 @@ public class LevelLoader {
         String[] levelRow;
         int currentRow = 0;
 
-        levelHead = "levels\\" + levelHead + lvlCount + ".tsv";
+        levelHead = "levels/" + levelHead + lvlCount + ".tsv";
         System.out.println(levelHead);
         lvlCount++;
         File level = new File(levelHead);
