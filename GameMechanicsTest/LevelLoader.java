@@ -6,7 +6,7 @@ public class LevelLoader {
     private static int lvlCount; //made static in case another levelLoader object needs to be
 
     public LevelLoader() {
-        this.level = new int[50][50];
+        this.level = new int[25][25];
         LevelLoader.lvlCount = 0;
     }
     public void loadLevel() throws IOException { 
@@ -15,7 +15,7 @@ public class LevelLoader {
         String[] levelRow;
         int currentRow = 0;
 
-        levelHead = "levels\\" + levelHead + lvlCount + ".tsv";
+        levelHead = "levels/" + levelHead + lvlCount + ".tsv";
         System.out.println(levelHead);
         lvlCount++;
         File level = new File(levelHead);
@@ -23,7 +23,7 @@ public class LevelLoader {
         while (sc.hasNext()) {
             next = sc.nextLine();
             levelRow = next.split("\t");
-            for(int i = 0; i < 50; i++) { //converts Strings from csv to ints
+            for(int i = 0; i < 25; i++) { //converts Strings from csv to ints
                 this.level[currentRow][i] = Integer.valueOf(levelRow[i]);
             }
             currentRow++; //increments current row
