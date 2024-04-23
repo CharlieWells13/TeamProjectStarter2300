@@ -25,11 +25,13 @@ public class Player {
     Boolean keyLeft = false;
     Boolean keyRight = false;
     Boolean keySwitch = true;
+    Boolean hitCollectable = false;
 
     int maxSpeed = 5;
     int jumpPower = -8;
     double gravity = 0.4;
     int climbingModeSlowDown = 4;
+    LevelTile curCollectable = null;
 
     Boolean isInAir = false;
 
@@ -39,7 +41,7 @@ public class Player {
         this.y = y;
 
         this.width = 32;
-        this.height = 32;
+        this.height = 64;
         hitBox = new Rectangle(x, y, width, height);
 
         // get player sprite
@@ -95,10 +97,12 @@ public class Player {
 
     // Player Movement
     public void set(){
+        System.out.println(this.y);
         HorizontalMovement();
         VerticleMovement();
         CollisionCheck();
         airBornCheck();
+        leaveCheck();
 
         modeCheck();
 
@@ -237,6 +241,7 @@ public class Player {
                 x = hitBox.x;
         }
     }
+    
         // Vertical Collision Checking
         hitBox.y += yspeed;
         for (LevelTile wall : panel.walls) {
@@ -245,6 +250,12 @@ public class Player {
                 wall.collideY(this, wall);
                 y = hitBox.y;
             }
+        }
+        if (hitCollectable) {
+            panel.walls.remove(curCollectable);
+            curCollectable = null;
+            hitCollectable = false;
+            
         }
     }
     
@@ -260,6 +271,17 @@ public class Player {
             }
         }
         hitBox.y--;
+    }
+    public void leaveCheck() {
+        if (y < -63) {
+            this.y = 700;
+            panel.drawNextLevel();
+        }
+        else if (y > 800) {
+            this.y = -62;
+            LevelLoader.lvlCount = LevelLoader.lvlCount -2;
+            panel.drawNextLevel();
+        }
     }
 
     public void draw(Graphics2D g2d){

@@ -23,20 +23,17 @@ public class Trapper extends LevelTile{
         else {
             tempSpeed = 1;
         }
-        player.setXSpeed(0);
-        player.setYSpeed(-3);
-        player.setXSpeed(tempSpeed*5);
+        player.setXSpeed(tempSpeed);
     }
     public void collideY(Player player, LevelTile wall) {
         int tempSpeed = 0;
-        if (player.getXSpeed() > 0) {
+        if (player.getYSpeed() > 0) {
             tempSpeed = -1;
         }
         else {
-            tempSpeed = 1;
+            tempSpeed = 10;
         }
-        player.setXSpeed(0);
-        player.setYSpeed(-3);
-        player.setXSpeed(tempSpeed*5);
+        player.setYSpeed(tempSpeed);
+
     }
 }

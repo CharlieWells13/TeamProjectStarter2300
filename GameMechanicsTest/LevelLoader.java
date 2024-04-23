@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class LevelLoader {
     private int[][] level;
-    private static int lvlCount; //made static in case another levelLoader object needs to be
+    public static int lvlCount; //made static in case another levelLoader object needs to be
 
     public LevelLoader() {
         this.level = new int[25][25];

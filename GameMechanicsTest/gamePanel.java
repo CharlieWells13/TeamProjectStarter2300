@@ -20,6 +20,7 @@ public class gamePanel extends JPanel implements ActionListener{
     ArrayList<Grabbable> grabbables = new ArrayList<Grabbable>();
     int spawnX;
     int spawnY;
+    
     Timer gameTimer;
 
     public gamePanel(){
@@ -68,6 +69,9 @@ public class gamePanel extends JPanel implements ActionListener{
                 }
                 else if (curBox == 8) {
                     walls.add(new Trapper(xPos, yPos, 32, 32));
+                }
+                else if (curBox == 9) {
+                    walls.add(new Collectable(xPos, yPos, 32, 32));
                 }
                 xPos = xPos + 32;
             }
