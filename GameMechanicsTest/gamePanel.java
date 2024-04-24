@@ -24,7 +24,7 @@ public class gamePanel extends JPanel implements ActionListener{
     Timer gameTimer;
 
     public gamePanel(){
-        player = new Player(300, 200, this);
+        player = new Player(50, 705, this);
 
         lv = new LevelLoader();
         try {
