@@ -106,7 +106,7 @@ public class Player {
 
     // Player Movement
     public void set(){
-        System.out.println(this.y);
+        //System.out.println(this.y);
         HorizontalMovement();
         VerticleMovement();
         CollisionCheck();
