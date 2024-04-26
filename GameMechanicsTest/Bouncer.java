@@ -4,8 +4,8 @@ import java.awt.Color;
 
 public class Bouncer extends LevelTile {
 
-    public Bouncer(int x, int y, int width, int height) {
-        super(x, y, width, height);
+    public Bouncer(int x, int y, int width, int height, gamePanel panel) {
+        super(x, y, width, height, panel);
         this.tileType = 7;
     }
     public void draw(Graphics2D g2d){
