@@ -43,6 +43,11 @@ public class Player {
     ImageIcon freefallRight = new ImageIcon("AlligatorAnimations/Alligator-FreeFall-Right.png");
     ImageIcon jump = new ImageIcon("AlligatorAnimations/Alligator-Jump.gif");
 
+    ImageIcon climbingStill = new ImageIcon("AlligatorAnimations/Alligator-Climb-StandStill.png");
+    ImageIcon climbingUp = new ImageIcon("AlligatorAnimations/Alligator-Climb-Ascending.gif");
+
+
+
 
     String currentAnimation = "Standstill";
 
@@ -257,10 +262,18 @@ public class Player {
         else{
             // tank style 2d movement
             if(keyUp && keyDown || !keyUp && !keyDown){
+                if(currentAnimation != "Climbing-Still"){
+                    playerSprite = climbingStill;
+                    currentAnimation = "Climbing-Still";
+                }
                 yspeed *= 0.8;
             }
             else if(keyUp && !keyDown){
                 yspeed--;
+                if(currentAnimation != "Climbing-Up"){
+                    playerSprite = climbingUp;
+                    currentAnimation = "Climbing-Up";
+                }
             }
             else if(!keyUp && keyDown){
                 yspeed+=2;
