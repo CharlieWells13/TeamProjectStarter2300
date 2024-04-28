@@ -2,14 +2,14 @@ import java.io.*;
 import java.util.Scanner;  
 
 public class LevelLoader {
-    private int[][] level;
-    public static int lvlCount; //made static in case another levelLoader object needs to be
+    private int[][] levelLayout = new int[25][25];
+    private int lvlCount; //made static in case another levelLoader object needs to be
 
     public LevelLoader() {
-        this.level = new int[25][25];
-        LevelLoader.lvlCount = 0;
+        this.lvlCount = 0;
     }
-    public void loadLevel() throws IOException { 
+
+    public void loadLevel(Level level) throws IOException { 
         String levelHead = "level";
         String next;
         String[] levelRow;
@@ -18,21 +18,18 @@ public class LevelLoader {
         levelHead = "levels/" + levelHead + lvlCount + ".tsv";
         System.out.println(levelHead);
         lvlCount++;
-        File level = new File(levelHead);
-        Scanner sc = new Scanner(level);
+        File levelFile = new File(levelHead);
+        Scanner sc = new Scanner(levelFile);
         while (sc.hasNext()) {
             next = sc.nextLine();
             levelRow = next.split("\t");
             for(int i = 0; i < 25; i++) { //converts Strings from csv to ints
-                this.level[currentRow][i] = Integer.valueOf(levelRow[i]);
+                levelLayout[currentRow][i] = Integer.valueOf(levelRow[i]);
             }
             currentRow++; //increments current row
         }
         sc.close();
 
+        level.setLevelLayout(levelLayout);
     }
-    public int[][] getCurrentLevel() {
-        return this.level;
-    }
-
 }

@@ -10,32 +10,26 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class gamePanel extends JPanel implements ActionListener{
-    
-    Player player;
 
-    LevelLoader lv;
-    int[][] currentLevel;
-
-    ArrayList<LevelTile> walls = new ArrayList<LevelTile>();
-    ArrayList<Grabbable> grabbables = new ArrayList<Grabbable>();
-    int spawnX;
-    int spawnY;
+    private int NUM_LEVELS = 2;     // number of levels in the game (IMPORTANT THIS IS ACCURATE)
     
-    Timer gameTimer;
+    private Player player;
+
+    private Background background;
+
+    private ArrayList<Level> levels = new ArrayList<Level>();
+    private int curLevelNum;
+    
+    private Timer gameTimer;
 
     public gamePanel(){
         player = new Player(50, 705, this);
+        this.background = new Background(this);
 
-        lv = new LevelLoader();
-        try {
-            lv.loadLevel();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        
-        currentLevel = lv.getCurrentLevel();
-        makeLevel();
+        loadLevels();
+
+        setLevel(0);
+        player.setLevel(levels.get(0));
 
         gameTimer = new Timer();
         gameTimer.schedule(new TimerTask() {
@@ -49,52 +43,20 @@ public class gamePanel extends JPanel implements ActionListener{
         }, 0, 17);
     }
 
-    // Load ArrayList with walls to be added to level
-    public void makeLevel(){
-        int xPos = 0;
-        int yPos = 0;
-        for (int[] curRow : this.currentLevel) {
-            for (int curBox : curRow) {
-                if (curBox == 1) {
-                    walls.add(new Wall (xPos, yPos, 32, 32, this));
-                }
-                else if (curBox == 2) {
-                    grabbables.add(new Grabbable(xPos, yPos, 32, 32, this));
-                }
-                else if (curBox == 3) {
-                    player.setPos(xPos, yPos);
-                }
-                else if (curBox == 7) {
-                    walls.add(new Bouncer (xPos, yPos, 32, 32, this));
-                }
-                else if (curBox == 8) {
-                    walls.add(new Trapper(xPos, yPos, 32, 32, this));
-                }
-                else if (curBox == 9) {
-                    walls.add(new Collectable(xPos, yPos, 32, 32, this));
-                }
-                xPos = xPos + 32;
+    // loads levels[] with all the levels
+    public void loadLevels(){
+        LevelLoader lvlLoader = new LevelLoader();
+        for(int i = 0; i < NUM_LEVELS; i++){
+            Level level = new Level(i, this);
+            try {
+                lvlLoader.loadLevel(level);
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
             }
-            xPos = 0;
-            yPos = yPos + 32;
+            levels.add(level);
         }
     }
-
-    public void drawNextLevel() { 
-        walls = new ArrayList<LevelTile>();
-        grabbables = new ArrayList<Grabbable>();
-        try {
-            lv.loadLevel();
-        } catch (IOException e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
-        }
-        currentLevel = lv.getCurrentLevel();
-        makeLevel();
-
-    }
-
-
 
     @Override
     public void actionPerformed(ActionEvent ae){
@@ -103,11 +65,13 @@ public class gamePanel extends JPanel implements ActionListener{
     // update scene visuals (called once every frame)
     public void paint(Graphics g){
         super.paint(g);
-
         Graphics2D g2d = (Graphics2D) g;
 
-        for(LevelTile wall : walls){
-            wall.draw(g2d);
+        ArrayList<LevelTile> tiles = levels.get(curLevelNum).getLevelTiles();
+        ArrayList<Grabbable> grabbables = levels.get(curLevelNum).getGrabbables();
+
+        for(LevelTile tile : tiles){
+            tile.draw(g2d);
         }
         for(Grabbable grabbable : grabbables){
             grabbable.draw(g2d);
@@ -132,6 +96,7 @@ public class gamePanel extends JPanel implements ActionListener{
         if(e.getKeyChar() == 'q'){
             player.toggleMode();
         }
+        /*
         if (e.getKeyChar() == 'n') { //can be removed later, meant for debugging
             drawNextLevel();
             
@@ -139,6 +104,7 @@ public class gamePanel extends JPanel implements ActionListener{
         if (e.getKeyChar() == 'r') { //resets current level, also meant for debugging
             makeLevel();
         }
+        */
     }
 
     public void keyReleased(KeyEvent e){
@@ -160,5 +126,10 @@ public class gamePanel extends JPanel implements ActionListener{
         if(e.getKeyChar() == 'q'){
             player.toggleMode();
         }
+    }
+
+    public void setLevel(int levelNum){
+        this.curLevelNum = levelNum;
+        background.setBackground(levels.get(curLevelNum).getBackgroundName());
     }
 }

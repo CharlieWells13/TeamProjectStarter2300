@@ -1,15 +1,18 @@
-
 import java.awt.Rectangle;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 
 public class Player {
     
-    gamePanel panel;
+    private gamePanel panel;
+    private Level curLevel;
+    private ArrayList<LevelTile> levelTiles;
+    private ArrayList<Grabbable> grabbables;
 
     ImageIcon playerSprite;
 
@@ -47,8 +50,6 @@ public class Player {
     ImageIcon climbingUp = new ImageIcon("AlligatorAnimations/Alligator-Climb-Ascending.gif");
 
 
-
-
     String currentAnimation = "Standstill";
 
     Boolean lastFacedRight = true;
@@ -62,10 +63,14 @@ public class Player {
         this.height = 64;
         hitBox = new Rectangle(x, y, width, height);
 
+        this.levelTiles = new ArrayList<LevelTile>();
+        this.grabbables = new ArrayList<Grabbable>();
+
         // get player sprite
         playerSprite = standstillRight;
 
     }
+
     public int getX() {
         return this.x;
     }
@@ -91,7 +96,7 @@ public class Player {
 
     // switches player movement mode
     public void toggleMode(){
-        for(Grabbable grabbable : panel.grabbables){
+        for(Grabbable grabbable : grabbables){
             if(hitBox.intersects(grabbable.hitBox)){
                 keySwitch = !keySwitch;
                 break;
@@ -100,7 +105,7 @@ public class Player {
     }
 
     public int modeCheck(){
-        for(Grabbable grabbable : panel.grabbables){
+        for(Grabbable grabbable : grabbables){
             if(hitBox.intersects(grabbable.hitBox)){
                 return 0;
             }
@@ -116,7 +121,7 @@ public class Player {
         VerticleMovement();
         CollisionCheck();
         airBornCheck();
-        leaveCheck();
+        //leaveCheck();
 
         modeCheck();
 
@@ -148,7 +153,7 @@ public class Player {
                 }
                 else{
                     hitBox.y++;
-                    for(LevelTile wall : panel.walls){
+                    for(LevelTile wall : levelTiles){
                         if (wall instanceof Wall) {
                         if(hitBox.intersects(wall.hitBox)){
                             xspeed *= 0.5;
@@ -172,7 +177,7 @@ public class Player {
                 }
                 else{
                     hitBox.y++;
-                    for(LevelTile wall : panel.walls){
+                    for(LevelTile wall : levelTiles){
                         if (wall instanceof Wall) {
                         if(hitBox.intersects(wall.hitBox)){
                             xspeed--;
@@ -196,7 +201,7 @@ public class Player {
                 }
                 else{
                     hitBox.y++;
-                    for(LevelTile wall : panel.walls){
+                    for(LevelTile wall : levelTiles){
                         if (wall instanceof Wall) {
                         if(hitBox.intersects(wall.hitBox)){
                             xspeed++;
@@ -296,7 +301,7 @@ public class Player {
         
         // Horizontal Collision Checking
         hitBox.x += xspeed;
-        for (LevelTile wall : panel.walls) {
+        for (LevelTile wall : levelTiles) {
             if (hitBox.intersects(wall.hitBox)) {
                 hitBox.x -= xspeed;
                 wall.collideX(this, wall);
@@ -306,7 +311,7 @@ public class Player {
     
         // Vertical Collision Checking
         hitBox.y += yspeed;
-        for (LevelTile wall : panel.walls) {
+        for (LevelTile wall : levelTiles) {
             if (hitBox.intersects(wall.hitBox)) {
                 hitBox.y -= yspeed;
                 wall.collideY(this, wall);
@@ -314,7 +319,7 @@ public class Player {
             }
         }
         if (hitCollectable) {
-            panel.walls.remove(curCollectable);
+            levelTiles.remove(curCollectable);
             curCollectable = null;
             hitCollectable = false;
             
@@ -324,7 +329,7 @@ public class Player {
     public void airBornCheck(){
         hitBox.y++;
         isInAir = true;
-        for(LevelTile wall : panel.walls){
+        for(LevelTile wall : levelTiles){
             if (wall instanceof Wall) {
                 if(hitBox.intersects(wall.hitBox)){
                     isInAir = false;
@@ -334,7 +339,9 @@ public class Player {
         }
         hitBox.y--;
     }
-    public void leaveCheck() {
+
+    /*
+    public void leaveCheck(){
         if (y < -63) {
             this.y = 700;
             panel.drawNextLevel();
@@ -345,8 +352,16 @@ public class Player {
             panel.drawNextLevel();
         }
     }
+    */
 
     public void draw(Graphics2D g2d){
         playerSprite.paintIcon(panel, g2d, x, y);
+    }
+
+    // updates player on the current level
+    public void setLevel(Level level){
+        this.curLevel = level;
+        levelTiles = level.getLevelTiles();
+        grabbables = level.getGrabbables();
     }
 }

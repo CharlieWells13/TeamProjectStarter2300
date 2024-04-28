@@ -1,9 +1,21 @@
 import javax.swing.*;
 
 public class Background {
+
+    private gamePanel panel;
+    private JLabel curBackground;
     
     public Background(gamePanel panel){
-        ImageIcon icon = new ImageIcon("3veowxtcmq471.jpg");   // uses one style of loading images
-        panel.add(new JLabel(icon));
+        this.panel = panel;
+
+        ImageIcon icon = new ImageIcon("Backgrounds/defaultBackground.png");
+        this.curBackground = new JLabel(icon);
+        panel.add(curBackground);
+    }
+
+    public void setBackground(String fileName){
+        ImageIcon icon = new ImageIcon(fileName);
+        curBackground.setIcon(icon);
+        panel.add(curBackground);
     }
 }
