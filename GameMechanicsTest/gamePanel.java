@@ -56,22 +56,22 @@ public class gamePanel extends JPanel implements ActionListener{
         for (int[] curRow : this.currentLevel) {
             for (int curBox : curRow) {
                 if (curBox == 1) {
-                    walls.add(new Wall (xPos, yPos, 32, 32));
+                    walls.add(new Wall (xPos, yPos, 32, 32, this));
                 }
                 else if (curBox == 2) {
-                    grabbables.add(new Grabbable(xPos, yPos, 32, 32));
+                    grabbables.add(new Grabbable(xPos, yPos, 32, 32, this));
                 }
                 else if (curBox == 3) {
                     player.setPos(xPos, yPos);
                 }
                 else if (curBox == 7) {
-                    walls.add(new Bouncer (xPos, yPos, 32, 32));
+                    walls.add(new Bouncer (xPos, yPos, 32, 32, this));
                 }
                 else if (curBox == 8) {
-                    walls.add(new Trapper(xPos, yPos, 32, 32));
+                    walls.add(new Trapper(xPos, yPos, 32, 32, this));
                 }
                 else if (curBox == 9) {
-                    walls.add(new Collectable(xPos, yPos, 32, 32));
+                    walls.add(new Collectable(xPos, yPos, 32, 32, this));
                 }
                 xPos = xPos + 32;
             }

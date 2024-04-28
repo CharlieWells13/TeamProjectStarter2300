@@ -2,7 +2,7 @@
 import java.awt.Rectangle;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 
@@ -11,7 +11,7 @@ public class Player {
     
     gamePanel panel;
 
-    BufferedImage playerSprite; // uses other style of loading images
+    ImageIcon playerSprite;
 
     int x, y;
     int width, height;
@@ -35,6 +35,24 @@ public class Player {
 
     Boolean isInAir = false;
 
+    ImageIcon walkLeft = new ImageIcon("AlligatorAnimations/Alligator-Walk-Left.gif");
+    ImageIcon walkRight = new ImageIcon("AlligatorAnimations/Alligator-Walk-Right.gif");
+    ImageIcon standstillRight = new ImageIcon("AlligatorAnimations/Alligator-Standstill-Right.png");
+    ImageIcon standstillLeft = new ImageIcon("AlligatorAnimations/Alligator-Standstill-Left.png");
+    ImageIcon freefallLeft = new ImageIcon("AlligatorAnimations/Alligator-FreeFall-Left.png");
+    ImageIcon freefallRight = new ImageIcon("AlligatorAnimations/Alligator-FreeFall-Right.png");
+    ImageIcon jump = new ImageIcon("AlligatorAnimations/Alligator-Jump.gif");
+
+    ImageIcon climbingStill = new ImageIcon("AlligatorAnimations/Alligator-Climb-StandStill.png");
+    ImageIcon climbingUp = new ImageIcon("AlligatorAnimations/Alligator-Climb-Ascending.gif");
+
+
+
+
+    String currentAnimation = "Standstill";
+
+    Boolean lastFacedRight = true;
+
     public Player(int x, int y, gamePanel panel){
         this.panel = panel;
         this.x = x;
@@ -45,12 +63,8 @@ public class Player {
         hitBox = new Rectangle(x, y, width, height);
 
         // get player sprite
-        try{
-            playerSprite = ImageIO.read(new File("placeholder.png"));
-        }
-        catch(IOException e){
-            e.printStackTrace();
-        }
+        playerSprite = standstillRight;
+
     }
     public int getX() {
         return this.x;
@@ -97,7 +111,7 @@ public class Player {
 
     // Player Movement
     public void set(){
-        System.out.println(this.y);
+        //System.out.println(this.y);
         HorizontalMovement();
         VerticleMovement();
         CollisionCheck();
@@ -115,61 +129,101 @@ public class Player {
 
     // Left and Right Movement
     public void HorizontalMovement(){
-        if(keyLeft && keyRight || !keyLeft && !keyRight){
-            if(!keySwitch){
-                xspeed *= 0.5;
-            }
-            else{
-                hitBox.y++;
-                for(LevelTile wall : panel.walls){
-                    if (wall instanceof Wall) {
-                    if(hitBox.intersects(wall.hitBox)){
-                        xspeed *= 0.5;
-                        break;
-                    }
+            if(keyLeft && keyRight || !keyLeft && !keyRight){
+                if(!isInAir){
+                    if(!currentAnimation.equals("Standstill-Left") && !currentAnimation.equals("Standstill-Right")){
+                        if(lastFacedRight){
+                            playerSprite = standstillRight;
+                            currentAnimation = "Standstill-Right";
+                        }
+                        else{
+                            playerSprite = standstillLeft;
+                            currentAnimation = "Standstill-Left";
+                        }
+                    }   
                 }
-            }
-                hitBox.y--;
-            }
-        }
-        else if(keyLeft && !keyRight){
-            if(!keySwitch){
-                xspeed--;
-            }
-            else{
-                hitBox.y++;
-                for(LevelTile wall : panel.walls){
-                    if (wall instanceof Wall) {
-                    if(hitBox.intersects(wall.hitBox)){
-                        xspeed--;
-                        break;
-                    }
-                }
-            }
-                hitBox.y--;
-            }
-        }
-        else if(!keyLeft && keyRight){
-            if(!keySwitch){
-                xspeed++;
-            }
-            else{
-                hitBox.y++;
-                for(LevelTile wall : panel.walls){
-                    if (wall instanceof Wall) {
-                    if(hitBox.intersects(wall.hitBox)){
-                        xspeed++;
-                        break;
-                    }
-                }
-            }
-                hitBox.y--;
-            }
-        }
 
-        if(xspeed > -0.75 && xspeed < 0.75){
-            xspeed = 0;
-        }
+                if(!keySwitch){
+                    xspeed *= 0.5;
+                }
+                else{
+                    hitBox.y++;
+                    for(LevelTile wall : panel.walls){
+                        if (wall instanceof Wall) {
+                        if(hitBox.intersects(wall.hitBox)){
+                            xspeed *= 0.5;
+                            break;
+                        }
+                    }
+                }
+                    hitBox.y--;
+                }
+            }
+            else if(keyLeft && !keyRight){ //moving left
+                if(!isInAir){
+                    if(currentAnimation != "Walk-Left"){
+                        playerSprite = walkLeft;
+                        currentAnimation = "Walk-Left";
+                        lastFacedRight = false;
+                    }
+                }
+                if(!keySwitch){
+                    xspeed--;
+                }
+                else{
+                    hitBox.y++;
+                    for(LevelTile wall : panel.walls){
+                        if (wall instanceof Wall) {
+                        if(hitBox.intersects(wall.hitBox)){
+                            xspeed--;
+                            break;
+                        }
+                    }
+                }
+                    hitBox.y--;
+                }
+            }
+            else if(!keyLeft && keyRight){//moving right
+                if(!isInAir){
+                    if(currentAnimation != "Walk-Right"){
+                        playerSprite = walkRight;
+                        currentAnimation = "Walk-Right";
+                        lastFacedRight = true;
+                    }
+                }
+                if(!keySwitch){
+                    xspeed++;
+                }
+                else{
+                    hitBox.y++;
+                    for(LevelTile wall : panel.walls){
+                        if (wall instanceof Wall) {
+                        if(hitBox.intersects(wall.hitBox)){
+                            xspeed++;
+                            break;
+                        }
+                    }
+                }
+                    hitBox.y--;
+                }
+            }
+
+            if(isInAir){
+                if(!currentAnimation.equals("FreeFall-Left") && !currentAnimation.equals("FreeFall-Right")){
+                    if(lastFacedRight){
+                        playerSprite = freefallRight;
+                        currentAnimation = "FreeFall-Right";
+                    }
+                    else{
+                        playerSprite = freefallLeft;
+                        currentAnimation = "FreeFall-Left";
+                    }
+                } 
+            }
+
+            if(xspeed > -0.75 && xspeed < 0.75){
+                xspeed = 0;
+            }
 
         if(keySwitch){
             if(!isInAir){
@@ -195,7 +249,7 @@ public class Player {
     public void VerticleMovement(){
         if(keySwitch){
             //up and down
-            if(keyUp){      // only able to jump when on ground
+            if(keyUp){      //working on a way to add jump animation, is tricky because so short
                 if(!isInAir){
                     yspeed = jumpPower;
                 }
@@ -208,10 +262,18 @@ public class Player {
         else{
             // tank style 2d movement
             if(keyUp && keyDown || !keyUp && !keyDown){
+                if(currentAnimation != "Climbing-Still"){
+                    playerSprite = climbingStill;
+                    currentAnimation = "Climbing-Still";
+                }
                 yspeed *= 0.8;
             }
             else if(keyUp && !keyDown){
                 yspeed--;
+                if(currentAnimation != "Climbing-Up"){
+                    playerSprite = climbingUp;
+                    currentAnimation = "Climbing-Up";
+                }
             }
             else if(!keyUp && keyDown){
                 yspeed+=2;
@@ -285,6 +347,6 @@ public class Player {
     }
 
     public void draw(Graphics2D g2d){
-        g2d.drawImage(playerSprite, x, y, panel);
+        playerSprite.paintIcon(panel, g2d, x, y);
     }
 }

@@ -3,8 +3,8 @@ import java.awt.Color;
 
 public class Trapper extends LevelTile{
 
-    public Trapper(int x, int y, int width, int height) {
-        super(x, y, width, height);
+    public Trapper(int x, int y, int width, int height, gamePanel panel) {
+        super(x, y, width, height, panel);
         this.tileType = 8;
 
     }
