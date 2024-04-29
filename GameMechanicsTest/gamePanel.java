@@ -36,8 +36,8 @@ public class gamePanel extends JPanel implements ActionListener{
             
             @Override
             public void run(){
-                player.set();
                 repaint();
+                player.set();
             }
 
         }, 0, 17);
@@ -96,7 +96,7 @@ public class gamePanel extends JPanel implements ActionListener{
         if(e.getKeyChar() == 'q'){
             player.toggleOn();
         }
-        if (e.getKeyChar() == 'e' ) {
+        if(e.getKeyChar() == 'e' ) {
             player.toggleOff();
         }
         /*

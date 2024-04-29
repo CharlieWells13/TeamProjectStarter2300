@@ -1,9 +1,6 @@
 import java.awt.Rectangle;
 import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
 import javax.swing.*;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
 
@@ -14,8 +11,6 @@ public class Player {
     private int curLevelNum;
     private ArrayList<LevelTile> levelTiles;
     private ArrayList<Grabbable> grabbables;
-    private Rectangle Above;
-    private Rectangle Under;
 
     ImageIcon playerSprite;
 
@@ -136,9 +131,8 @@ public class Player {
         VerticleMovement();
         CollisionCheck();
         airBornCheck();
-        leaveCheck();
-
         modeCheck();
+        leaveCheck();
 
         x += xspeed;
         y += yspeed;
@@ -357,13 +351,19 @@ public class Player {
 
     // check if new level needs to be loaded
     public void leaveCheck(){
-        if (y < -63) {
-            this.y = 700;
+        if (y < -55) {
             panel.setLevel(curLevelNum + 1);
+            this.y = 750;
+            if(!keySwitch){
+                toggleOn();
+            }
         }
-        else if (y > 800) {
-            this.y = -62;
+        else if (y > 795) {
             panel.setLevel(curLevelNum - 1);
+            this.y = -54;
+            if(!keySwitch){
+                toggleOn();
+            }
         }
     }
 
