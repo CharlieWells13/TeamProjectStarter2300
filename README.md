@@ -5,6 +5,8 @@ This is a foddian style 2D platformer made in java swing by
 - Anthony Russo
 - Charlie Wells
 
+to run the game, run the game platformerTest.java
+
 
 # BASIC CONTROLS
 
