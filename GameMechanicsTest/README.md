@@ -19,7 +19,7 @@ This is our alpha version, meaning that there are some things that are polished 
 
 POLISHED:
 - simple gameplay mechanics: walk, jump, climb
-- a funcitoning level editor via excel
+- a funcitoning level editor via excel: https://docs.google.com/spreadsheets/d/1aajrhPuxYBjG1hCwqYjwBfMf7LxzwI5n02Gsq4F0JYE/edit?usp=sharing 
 - some proof of concept levels, showing our working game mechanics
 
 SEMI-POLISHED / FUNCTIONAL:
@@ -31,4 +31,5 @@ NOT POLISHED / TO BE IMPLEMENTED:
     - making levels more challenging 
     - adding custom "gimmicks" (Ice, falling snow, turrets, ect... ) to make the levels more unique
     - adding artwork backrounds to make the levels visually appealing
+    - Collectables with counter displayed on screen
 - 

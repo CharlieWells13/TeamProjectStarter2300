@@ -54,13 +54,13 @@ public class Level {
                 //else if (curBox == 3) {
                 //    player.setPos(xPos, yPos);
                 //}
-                else if (curBox == 7) {
+                else if (curBox == 6) {
                     levelTiles.add(new Bouncer (xPos, yPos, 32, 32, panel));
                 }
-                else if (curBox == 8) {
+                else if (curBox == 7) {
                     levelTiles.add(new Trapper(xPos, yPos, 32, 32, panel));
                 }
-                else if (curBox == 9) {
+                else if (curBox == 8) {
                     levelTiles.add(new Collectable(xPos, yPos, 32, 32, panel));
                 }
                 xPos = xPos + 32;
