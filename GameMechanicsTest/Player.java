@@ -272,6 +272,13 @@ public class Player {
                 yspeed++;
             }
             yspeed += gravity;    //gravity
+
+            if(yspeed > 15){
+                yspeed = 15;
+            }
+            else if(yspeed < -15){
+                yspeed = -15;
+            }
         }
         else{
             // tank style 2d movement
