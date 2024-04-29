@@ -29,7 +29,7 @@ public class gamePanel extends JPanel implements ActionListener{
         loadLevels();
 
         setLevel(0);
-        player.setLevel(levels.get(0));
+        player.setLevel(levels.get(0), 0);
 
         gameTimer = new Timer();
         gameTimer.schedule(new TimerTask() {
@@ -131,5 +131,6 @@ public class gamePanel extends JPanel implements ActionListener{
     public void setLevel(int levelNum){
         this.curLevelNum = levelNum;
         background.setBackground(levels.get(curLevelNum).getBackgroundName());
+        player.setLevel(levels.get(curLevelNum), curLevelNum);
     }
 }

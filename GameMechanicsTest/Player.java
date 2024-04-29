@@ -11,8 +11,11 @@ public class Player {
     
     private gamePanel panel;
     private Level curLevel;
+    private int curLevelNum;
     private ArrayList<LevelTile> levelTiles;
     private ArrayList<Grabbable> grabbables;
+    private Rectangle Above;
+    private Rectangle Under;
 
     ImageIcon playerSprite;
 
@@ -31,7 +34,7 @@ public class Player {
     Boolean hitCollectable = false;
 
     int maxSpeed = 5;
-    int jumpPower = -8;
+    int jumpPower = -10;    //-8;
     double gravity = 0.4;
     int climbingModeSlowDown = 4;
     LevelTile curCollectable = null;
@@ -121,7 +124,7 @@ public class Player {
         VerticleMovement();
         CollisionCheck();
         airBornCheck();
-        //leaveCheck();
+        leaveCheck();
 
         modeCheck();
 
@@ -340,27 +343,26 @@ public class Player {
         hitBox.y--;
     }
 
-    /*
+    // check if new level needs to be loaded
     public void leaveCheck(){
         if (y < -63) {
             this.y = 700;
-            panel.drawNextLevel();
+            panel.setLevel(curLevelNum + 1);
         }
         else if (y > 800) {
             this.y = -62;
-            LevelLoader.lvlCount = LevelLoader.lvlCount -2;
-            panel.drawNextLevel();
+            panel.setLevel(curLevelNum - 1);
         }
     }
-    */
 
     public void draw(Graphics2D g2d){
         playerSprite.paintIcon(panel, g2d, x, y);
     }
 
     // updates player on the current level
-    public void setLevel(Level level){
+    public void setLevel(Level level, int curLevelNum){
         this.curLevel = level;
+        this.curLevelNum = curLevelNum;
         levelTiles = level.getLevelTiles();
         grabbables = level.getGrabbables();
     }

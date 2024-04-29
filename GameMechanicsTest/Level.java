@@ -13,11 +13,6 @@ public class Level {
     private ArrayList<LevelTile> levelTiles = new ArrayList<LevelTile>();
     private ArrayList<Grabbable> grabbables = new ArrayList<Grabbable>();
 
-    private Rectangle Above;
-    private Rectangle Under;
-    private Rectangle Right;
-    private Rectangle Left;
-
     public Level(int levelNum, gamePanel panel){
         this.panel = panel;
         this.levelNum = levelNum;
