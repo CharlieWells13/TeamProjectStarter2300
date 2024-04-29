@@ -98,10 +98,22 @@ public class Player {
     }
 
     // switches player movement mode
-    public void toggleMode(){
+    public void toggleOn(){
         for(Grabbable grabbable : grabbables){
             if(hitBox.intersects(grabbable.hitBox)){
+                if (keySwitch) {
                 keySwitch = !keySwitch;
+                }
+                break;
+            }
+        }
+    }
+    public void toggleOff() {
+        for(Grabbable grabbable : grabbables){
+            if(hitBox.intersects(grabbable.hitBox)){
+                if (!keySwitch) {
+                keySwitch = !keySwitch;
+                }
                 break;
             }
         }

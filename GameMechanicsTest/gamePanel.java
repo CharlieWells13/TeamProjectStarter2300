@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class gamePanel extends JPanel implements ActionListener{
 
-    private int NUM_LEVELS = 2;     // number of levels in the game (IMPORTANT THIS IS ACCURATE)
+    private int NUM_LEVELS = 3;     // number of levels in the game (IMPORTANT THIS IS ACCURATE)
     
     private Player player;
 
@@ -94,7 +94,10 @@ public class gamePanel extends JPanel implements ActionListener{
             player.keyRight = true;
         }
         if(e.getKeyChar() == 'q'){
-            player.toggleMode();
+            player.toggleOn();
+        }
+        if (e.getKeyChar() == 'e' ) {
+            player.toggleOff();
         }
         /*
         if (e.getKeyChar() == 'n') { //can be removed later, meant for debugging
@@ -123,9 +126,6 @@ public class gamePanel extends JPanel implements ActionListener{
 
         // causes q to be held in order to switch movement mode (remove if you want clean toggle each press)
         // DOES NOT WORK PERFECTLY *********
-        if(e.getKeyChar() == 'q'){
-            player.toggleMode();
-        }
     }
 
     public void setLevel(int levelNum){
