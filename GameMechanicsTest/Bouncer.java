@@ -18,7 +18,7 @@ public class Bouncer extends LevelTile {
         player.setYSpeed(-4);
     }
     public void collideY(Player player, LevelTile wall) {
-        player.setYSpeed(player.getYSpeed() + -10);
+        player.setYSpeed(-10);
         if (player.getXSpeed() == 0) {
             Random r = new Random();
             player.setXSpeed(r.nextDouble(-5,5));
