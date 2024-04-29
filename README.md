@@ -5,6 +5,7 @@ This is a foddian style 2D platformer made in java swing by
 - Anthony Russo
 - Charlie Wells
 
+
 # BASIC CONTROLS
 
 W- Jump
@@ -12,6 +13,7 @@ A- Move left
 D - Move right
 S- fall fast while in air
 Q - Toggle to grab / climb
+E - Toggle to release climbing
 
 # ALPHA
 
@@ -32,4 +34,4 @@ NOT POLISHED / TO BE IMPLEMENTED:
     - adding custom "gimmicks" (Ice, falling snow, turrets, ect... ) to make the levels more unique
     - adding artwork backrounds to make the levels visually appealing
     - Collectables with counter displayed on screen
-- 
+
