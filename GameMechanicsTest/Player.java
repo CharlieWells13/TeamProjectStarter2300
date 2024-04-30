@@ -16,6 +16,7 @@ public class Player {
 
     int x, y;
     int width, height;
+    int collectableCount;
 
     double xspeed, yspeed;
 
@@ -56,6 +57,7 @@ public class Player {
         this.panel = panel;
         this.x = x;
         this.y = y;
+        this.collectableCount = 0;
 
         this.width = 32;
         this.height = 64;
@@ -338,6 +340,8 @@ public class Player {
             levelTiles.remove(curCollectable);
             curCollectable = null;
             hitCollectable = false;
+            collectableCount++;
+            System.out.println("Collected " + collectableCount);
             
         }
     }
