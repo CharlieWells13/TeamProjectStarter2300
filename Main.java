@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
-public class platformerTest{
+public class Main{
 
     public static void main(String[] args) {
         mainFrame frame = new mainFrame();          // make new frame (extends JFrame)

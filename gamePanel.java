@@ -58,6 +58,12 @@ public class gamePanel extends JPanel implements ActionListener{
         }
     }
 
+    public void setLevel(int levelNum){
+        this.curLevelNum = levelNum;
+        background.setBackground(levels.get(curLevelNum).getBackgroundName());
+        player.setLevel(levels.get(curLevelNum), curLevelNum);
+    }
+
     @Override
     public void actionPerformed(ActionEvent ae){
     }
@@ -82,16 +88,16 @@ public class gamePanel extends JPanel implements ActionListener{
 
     public void keyPressed(KeyEvent e){
         if(e.getKeyChar() == 'w'){
-            player.keyUp = true;
+            player.setKeyUp(true);
         }
         if(e.getKeyChar() == 's'){
-            player.keyDown = true;
+            player.setKeyDown(true);
         }
         if(e.getKeyChar() == 'a'){
-            player.keyLeft = true;
+            player.setKeyLeft(true);
         }
         if(e.getKeyChar() == 'd'){
-            player.keyRight = true;
+            player.setKeyRight(true);
         }
         if(e.getKeyChar() == 'q'){
             player.toggleOn();
@@ -99,38 +105,20 @@ public class gamePanel extends JPanel implements ActionListener{
         if(e.getKeyChar() == 'e' ) {
             player.toggleOff();
         }
-        /*
-        if (e.getKeyChar() == 'n') { //can be removed later, meant for debugging
-            drawNextLevel();
-            
-        }
-        if (e.getKeyChar() == 'r') { //resets current level, also meant for debugging
-            makeLevel();
-        }
-        */
     }
 
     public void keyReleased(KeyEvent e){
         if(e.getKeyChar() == 'w'){
-            player.keyUp = false;
+            player.setKeyUp(false);
         }
         if(e.getKeyChar() == 's'){
-            player.keyDown = false;
+            player.setKeyDown(false);
         }
         if(e.getKeyChar() == 'a'){
-            player.keyLeft = false;
+            player.setKeyLeft(false);
         }
         if(e.getKeyChar() == 'd'){
-            player.keyRight = false;
+            player.setKeyRight(false);
         }
-
-        // causes q to be held in order to switch movement mode (remove if you want clean toggle each press)
-        // DOES NOT WORK PERFECTLY *********
-    }
-
-    public void setLevel(int levelNum){
-        this.curLevelNum = levelNum;
-        background.setBackground(levels.get(curLevelNum).getBackgroundName());
-        player.setLevel(levels.get(curLevelNum), curLevelNum);
     }
 }

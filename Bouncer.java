@@ -8,15 +8,18 @@ public class Bouncer extends LevelTile {
         super(x, y, width, height, panel);
         this.tileType = 7;
     }
+
     public void draw(Graphics2D g2d){
         g2d.setColor(Color.ORANGE);
         g2d.drawRect(x, y, width, height);
         g2d.fillRect(x, y, width, height);
     }
+
     public void collideX(Player player, LevelTile wall) {
         player.setXSpeed(player.getXSpeed() *-2);
         player.setYSpeed(-4);
     }
+    
     public void collideY(Player player, LevelTile wall) {
         player.setYSpeed(-10);
         if (player.getXSpeed() == 0) {

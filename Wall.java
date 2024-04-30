@@ -4,6 +4,7 @@ import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
 import java.util.Random;
+import java.awt.Rectangle;
 
 public class Wall extends LevelTile {
 
@@ -11,7 +12,6 @@ public class Wall extends LevelTile {
 
     public Wall(int x, int y, int width, int height, gamePanel panel){
         super(x, y, width, height, panel);
-        this.panel = panel;
         this.tileType = 1;
 
         try{
@@ -42,24 +42,23 @@ public class Wall extends LevelTile {
     @Override       // left as override cause idk how loading textures will be easiest
     public void draw(Graphics2D g2d){
         g2d.drawImage(wallTexture, x, y, panel);
-
-        //g2d.setColor(Color.BLACK);
-        //g2d.drawRect(x, y, width, height);
-        //g2d.fillRect(x, y, width, height);
     }
 
     public void collideX(Player player, LevelTile wall) {
-        while (!wall.hitBox.intersects(player.hitBox)) {
-            player.hitBox.x += Math.signum(player.getXSpeed());
+        Rectangle playerHitBox = player.getHitBox();
+        while (!wall.hitBox.intersects(playerHitBox)) {
+            playerHitBox.x += Math.signum(player.getXSpeed());
         }
-        player.hitBox.x -= Math.signum(player.getXSpeed());
+        playerHitBox.x -= Math.signum(player.getXSpeed());
         player.setXSpeed(0);
     }
+
     public void collideY(Player player, LevelTile wall) {
-        while (!wall.hitBox.intersects(player.hitBox)) {
-            player.hitBox.y += Math.signum(player.getYSpeed());
+        Rectangle playerHitBox = player.getHitBox();
+        while (!wall.hitBox.intersects(playerHitBox)) {
+            playerHitBox.y += Math.signum(player.getYSpeed());
         }
-        player.hitBox.y -= Math.signum(player.getYSpeed());
+        playerHitBox.y -= Math.signum(player.getYSpeed());
         player.setYSpeed(0);
     }
 }

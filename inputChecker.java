@@ -3,7 +3,7 @@ import java.awt.event.KeyEvent;
 
 public class inputChecker extends KeyAdapter {
     
-    gamePanel panel;
+    private gamePanel panel;
 
     public inputChecker(gamePanel panel){
         this.panel = panel;

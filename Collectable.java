@@ -8,19 +8,22 @@ public class Collectable extends LevelTile{
         tileType = 9;
         //TODO Auto-generated constructor stub
     }
+
     public void draw(Graphics2D g2d){
         g2d.setColor(Color.GREEN);
         g2d.drawRect(x, y, width, height);
         g2d.fillRect(x, y, width, height);
     }
+
     public void collideX(Player player, LevelTile wall) {
-        player.hitCollectable = true;
-        player.curCollectable = wall;
+        player.setHitCollectable(true);
+        player.setCurCollectable(wall);
 
     }
+    
     public void collideY(Player player, LevelTile wall) {
-        player.hitCollectable = true;
-        player.curCollectable = wall;
+        player.setHitCollectable(true);
+        player.setCurCollectable(wall);
     }
 
 }

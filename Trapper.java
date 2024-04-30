@@ -14,7 +14,6 @@ public class Trapper extends LevelTile{
         g2d.fillRect(x, y, width, height);
     }
 
-
     public void collideX(Player player, LevelTile wall) {
         int tempSpeed = 0;
         if (player.getXSpeed() > 0) {
@@ -25,6 +24,7 @@ public class Trapper extends LevelTile{
         }
         player.setXSpeed(tempSpeed);
     }
+
     public void collideY(Player player, LevelTile wall) {
         int tempSpeed = 0;
         if (player.getYSpeed() > 0) {

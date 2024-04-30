@@ -1,4 +1,3 @@
-import java.awt.Rectangle;
 import java.util.ArrayList;
 
 
@@ -51,9 +50,6 @@ public class Level {
                 else if (curBox == 2) {
                     grabbables.add(new Grabbable(xPos, yPos, 32, 32, panel));
                 }
-                //else if (curBox == 3) {
-                //    player.setPos(xPos, yPos);
-                //}
                 else if (curBox == 6) {
                     levelTiles.add(new Bouncer (xPos, yPos, 32, 32, panel));
                 }

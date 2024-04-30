@@ -27,9 +27,7 @@ public abstract class LevelTile {
     }
 
     public void collideX(Player player, LevelTile wall) {
-
     }
-    public void collideY(Player player, LevelTile wall) {
-        
+    public void collideY(Player player, LevelTile wall) {  
     }
 }
