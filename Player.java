@@ -334,17 +334,24 @@ public class Player {
             if(isWindy){
                 if(xspeed <= windSpeed){
                     System.out.println("Here");
-                    xspeed += windSpeed / 2;
+                    xspeed += windSpeed / 60;
+                    
+                }
+                else{
+                    if(xspeed > -0.75 && xspeed < 0.75){
+                        xspeed = 0;
+                    }
                 }
             }
-
+            else{
+                if(xspeed > -0.75 && xspeed < 0.75){
+                    xspeed = 0;
+                }
+            }
         }
         
 
-        // prevent player drift
-        if(xspeed > -0.75 && xspeed < 0.75){
-            xspeed = 0;
-        }
+        
 
 
 
