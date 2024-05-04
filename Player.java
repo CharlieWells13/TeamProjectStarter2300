@@ -31,10 +31,10 @@ public class Player {
     private Boolean hitCollectable = false;
     private LevelTile curCollectable = null;
 
-    private int maxSpeed = 5;
-    private int jumpPower = -10;    //-8;
+    private double maxSpeed = 5;
+    private double jumpPower = -10;    //-8;
     private double gravity = 0.4;
-    private int climbingModeSlowDown = 4;
+    private double climbingModeSlowDown = 4;
 
     private Boolean isInAir = false;
 
@@ -334,7 +334,7 @@ public class Player {
             if(isWindy){
                 if(xspeed <= windSpeed){
                     System.out.println("Here");
-                    xspeed += windSpeed / 10;
+                    xspeed += windSpeed / 2;
                 }
             }
 
@@ -346,14 +346,7 @@ public class Player {
             xspeed = 0;
         }
 
-        if(isWindy){
-            if(x <= windSpeed){
-                if(isInAir){
-                    xspeed += windSpeed / 60;
-                }
-            }
 
-        }
 
         // cap speed in each movement mode
         if(isPlatformer){
