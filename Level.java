@@ -7,6 +7,7 @@ public class Level {
 
     private int levelNum;
     private String backgroundName;
+    private Boolean isWindy;
 
     public int[][] levelLayout = new int[25][25];
     private ArrayList<LevelTile> levelTiles = new ArrayList<LevelTile>();
@@ -38,10 +39,15 @@ public class Level {
         makeLevel();
     }
 
+    public Boolean isWindy(){
+        return isWindy;
+    }
+
     // Load ArrayList with walls to be added to level
     public void makeLevel(){
         int xPos = 0;
         int yPos = 0;
+        isWindy = false;
         for (int[] curRow : this.levelLayout) {
             for (int curBox : curRow) {
                 if (curBox == 1) {
@@ -62,8 +68,12 @@ public class Level {
                 else if (curBox == 9) {
                     levelTiles.add(new IceBlock(xPos, yPos, 32, 32, panel));
                 }
+                else if (curBox == 22){
+                    isWindy = true;
+                }
                 xPos = xPos + 32;
             }
+            
             xPos = 0;
             yPos = yPos + 32;
         }

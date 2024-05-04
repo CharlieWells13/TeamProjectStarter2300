@@ -38,6 +38,9 @@ public class Player {
 
     private Boolean isInAir = false;
 
+    private Boolean isWindy = true;
+    private double windSpeed = 5;
+
     private ImageIcon walkLeft = new ImageIcon("AlligatorAnimations/Alligator-Walk-Left.gif");
     private ImageIcon walkRight = new ImageIcon("AlligatorAnimations/Alligator-Walk-Right.gif");
     private ImageIcon standstillRight = new ImageIcon("AlligatorAnimations/Alligator-Standstill-Right.png");
@@ -183,6 +186,7 @@ public class Player {
             if(!isPlatformer){
                 toggleOn();
             }
+            isWindy = curLevel.isWindy();
         }
         else if (y > 795) {
             panel.setLevel(curLevelNum - 1);
@@ -190,6 +194,7 @@ public class Player {
             if(!isPlatformer){
                 toggleOn();
             }
+            isWindy = curLevel.isWindy();
         }
     }
 
@@ -261,6 +266,7 @@ public class Player {
                 hitBox.y--;
             }
         }
+
         // moving left
         else if(keyLeft && !keyRight){
             if(!isInAir){
@@ -325,11 +331,28 @@ public class Player {
                     currentAnimation = "FreeFall-Left";
                 }
             } 
+            if(isWindy){
+                if(xspeed <= windSpeed){
+                    System.out.println("Here");
+                    xspeed += windSpeed / 10;
+                }
+            }
+
         }
+        
 
         // prevent player drift
         if(xspeed > -0.75 && xspeed < 0.75){
             xspeed = 0;
+        }
+
+        if(isWindy){
+            if(x <= windSpeed){
+                if(isInAir){
+                    xspeed += windSpeed / 60;
+                }
+            }
+
         }
 
         // cap speed in each movement mode
