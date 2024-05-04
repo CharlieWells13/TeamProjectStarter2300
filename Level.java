@@ -59,6 +59,9 @@ public class Level {
                 else if (curBox == 8) {
                     levelTiles.add(new Collectable(xPos, yPos, 32, 32, panel));
                 }
+                else if (curBox == 9) {
+                    levelTiles.add(new IceBlock(xPos, yPos, 32, 32, panel));
+                }
                 xPos = xPos + 32;
             }
             xPos = 0;

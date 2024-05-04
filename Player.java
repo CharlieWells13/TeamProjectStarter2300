@@ -165,7 +165,7 @@ public class Player {
         hitBox.y++;
         isInAir = true;
         for(LevelTile wall : levelTiles){
-            if (wall instanceof Wall) {
+            if (wall instanceof Wall || wall instanceof IceBlock) {
                 if(hitBox.intersects(wall.hitBox)){
                     isInAir = false;
                     break;
@@ -246,12 +246,18 @@ public class Player {
                 hitBox.y++;
                 for(LevelTile wall : levelTiles){
                     if (wall instanceof Wall) {
-                    if(hitBox.intersects(wall.hitBox)){
-                        xspeed *= 0.5;
-                        break;
+                        if(hitBox.intersects(wall.hitBox)){
+                            xspeed *= 0.5;
+                            break;
+                        }
+                    }
+                    if (wall instanceof IceBlock) {
+                        if(hitBox.intersects(wall.hitBox)){
+                            xspeed *= 0.95;
+                            break;
+                        }
                     }
                 }
-            }
                 hitBox.y--;
             }
         }
@@ -271,7 +277,7 @@ public class Player {
             else{
                 hitBox.y++;
                 for(LevelTile wall : levelTiles){
-                    if (wall instanceof Wall) {
+                    if (wall instanceof Wall || wall instanceof IceBlock) {
                         if(hitBox.intersects(wall.hitBox)){
                             xspeed--;
                             break;
@@ -297,7 +303,7 @@ public class Player {
             else{
                 hitBox.y++;
                 for(LevelTile wall : levelTiles){
-                    if (wall instanceof Wall) {
+                    if (wall instanceof Wall || wall instanceof IceBlock) {
                         if(hitBox.intersects(wall.hitBox)){
                             xspeed++;
                             break;
