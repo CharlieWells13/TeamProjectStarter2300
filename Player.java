@@ -38,7 +38,7 @@ public class Player {
 
     private Boolean isInAir = false;
 
-    private Boolean isWindy = true;
+    private Boolean isWindy = false;
     private double windSpeed = 5;
 
     private ImageIcon walkLeft = new ImageIcon("AlligatorAnimations/Alligator-Walk-Left.gif");
@@ -335,7 +335,6 @@ public class Player {
                 if(xspeed <= windSpeed){
                     System.out.println("Here");
                     xspeed += windSpeed / 60;
-                    
                 }
                 else{
                     if(xspeed > -0.75 && xspeed < 0.75){
@@ -350,8 +349,11 @@ public class Player {
             }
         }
         
-
-        
+        if(!isInAir){
+            if(xspeed > -0.75 && xspeed < 0.75){
+                        xspeed = 0;
+            }
+        }
 
 
 
