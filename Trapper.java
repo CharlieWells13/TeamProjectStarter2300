@@ -34,6 +34,15 @@ public class Trapper extends LevelTile{
             tempSpeed = 10;
         }
         player.setYSpeed(tempSpeed);
+        if (player.getXSpeed() == 0) {
+            if (player.lastFacing()) {
+                tempSpeed = 1;
+            }
+            else {
+                tempSpeed = -1;
+            }
+            player.setXSpeed(tempSpeed);
+        }
 
     }
 }
