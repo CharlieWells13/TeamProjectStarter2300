@@ -382,8 +382,8 @@ public class Player {
             if(xspeed > maxSpeed/climbingModeSlowDown){
                 xspeed = maxSpeed/climbingModeSlowDown;
             }
-            else if(xspeed < -maxSpeed/climbingModeSlowDown){
-                xspeed = -maxSpeed/climbingModeSlowDown;
+            else if(xspeed < (-maxSpeed/climbingModeSlowDown)/2){
+                xspeed = (-maxSpeed/climbingModeSlowDown)/2;
             }
         }
     }
@@ -443,8 +443,8 @@ public class Player {
             if(yspeed > maxSpeed/climbingModeSlowDown){
                 yspeed = maxSpeed/climbingModeSlowDown;
             }
-            else if(yspeed < -maxSpeed/climbingModeSlowDown){
-                yspeed = -maxSpeed/climbingModeSlowDown;
+            else if(yspeed < (-maxSpeed/climbingModeSlowDown)/2){
+                yspeed = (-maxSpeed/climbingModeSlowDown)/2;
             }
         }
     }
