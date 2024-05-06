@@ -384,7 +384,7 @@ public class Player {
             if(keyUp){      //working on a way to add jump animation, is tricky because so short
                 if(!isInAir){
                     yspeed = jumpPower;
-                    audioPlayer.playJump();
+                    //audioPlayer.playJump();
                 }
             }
             else if (!keyUp && keyDown) {
