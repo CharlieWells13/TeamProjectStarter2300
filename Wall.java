@@ -10,7 +10,7 @@ public class Wall extends LevelTile {
 
     BufferedImage wallTexture;
 
-    public Wall(int x, int y, int width, int height, gamePanel panel){
+    public Wall(int x, int y, int width, int height, gamePanel panel, int textureNum){
         super(x, y, width, height, panel);
         this.tileType = 1;
 
@@ -18,19 +18,26 @@ public class Wall extends LevelTile {
             Random rand = new Random();
             int randNum = rand.nextInt(100);
             String type;
-            if(randNum > 55){
+            String textureName = "CementTexture1"; // default texture (can change)
+            if(randNum > 47){
                 type = "1";
             }
-            else if(randNum > 10){
+            else if(randNum > 7){
                 type = "2";
             }
-            else if(randNum > 5){
+            else if(randNum > 4){
                 type = "3";
             }
             else{
                 type = "4";
             }
-            String textureName = "CementTexture" + type;
+            if(textureNum == 1){
+                textureName = "StoneTexture" + type;
+            }
+            else if(textureNum == 2){
+                textureName = "CementTexture" + type;
+            }
+
             String fileName = "Textures/" + textureName + ".png";
             wallTexture = ImageIO.read(new File(fileName));
         }
