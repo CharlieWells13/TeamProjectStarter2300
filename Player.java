@@ -51,6 +51,9 @@ public class Player {
 
     private ImageIcon climbingStill = new ImageIcon("AlligatorAnimations/Alligator-Climb-StandStill.png");
     private ImageIcon climbingUp = new ImageIcon("AlligatorAnimations/Alligator-Climb-Ascending.gif");
+    private ImageIcon climbingDown = new ImageIcon("AlligatorAnimations/Alligator-Climb-Descending.gif");
+    private ImageIcon climbingLeft = new ImageIcon("AlligatorAnimations/Alligator-Climb-Left.gif");
+    private ImageIcon climbingRight = new ImageIcon("AlligatorAnimations/Alligator-Climb-Right.gif");
 
 
     private String currentAnimation = "Standstill";
@@ -279,6 +282,10 @@ public class Player {
             // increase speed left
             if(!isPlatformer){
                 xspeed--;
+                if(!keyUp && !keyDown && currentAnimation != "Climbing-Left"){
+                    playerSprite = climbingLeft;
+                    currentAnimation = "Climbing-Left";
+                }
             }
             else{
                 hitBox.y++;
@@ -305,6 +312,10 @@ public class Player {
             // increase speed right
             if(!isPlatformer){
                 xspeed++;
+                if(!keyUp && !keyDown && currentAnimation != "Climbing-Right"){
+                    playerSprite = climbingRight;
+                    currentAnimation = "Climbing-Right";
+                }
             }
             else{
                 hitBox.y++;
@@ -321,7 +332,7 @@ public class Player {
         }
 
         if(isInAir){
-            if(!currentAnimation.equals("FreeFall-Left") && !currentAnimation.equals("FreeFall-Right")){
+            if(!currentAnimation.equals("FreeFall-Left") && !currentAnimation.equals("FreeFall-Right") && isPlatformer){
                 if(lastFacedRight){
                     playerSprite = freefallRight;
                     currentAnimation = "FreeFall-Right";
@@ -333,7 +344,6 @@ public class Player {
             } 
             if(isWindy){
                 if(xspeed <= windSpeed){
-                    System.out.println("Here");
                     xspeed += windSpeed / 60;
                 }
                 else{
@@ -351,7 +361,7 @@ public class Player {
         
         if(!isInAir){
             if(xspeed > -0.75 && xspeed < 0.75){
-                        xspeed = 0;
+                xspeed = 0;
             }
         }
 
@@ -403,7 +413,7 @@ public class Player {
         else{
             // tank style 2d movement
             if(keyUp && keyDown || !keyUp && !keyDown){
-                if(currentAnimation != "Climbing-Still"){
+                if(currentAnimation != "Climbing-Still" && !keyLeft && !keyRight){
                     playerSprite = climbingStill;
                     currentAnimation = "Climbing-Still";
                 }
@@ -418,6 +428,10 @@ public class Player {
             }
             else if(!keyUp && keyDown){
                 yspeed+=2;
+                if(currentAnimation != "Climbing-Down"){
+                    playerSprite = climbingDown;
+                    currentAnimation = "Climbing-Down";
+                }
             }
 
             // prevent player drift
