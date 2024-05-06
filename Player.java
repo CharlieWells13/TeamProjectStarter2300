@@ -443,8 +443,8 @@ public class Player {
             if(yspeed > maxSpeed/climbingModeSlowDown){
                 yspeed = maxSpeed/climbingModeSlowDown;
             }
-            else if(yspeed < (-maxSpeed/climbingModeSlowDown)/2){
-                yspeed = (-maxSpeed/climbingModeSlowDown)/2;
+            else if(yspeed < -maxSpeed/climbingModeSlowDown){
+                yspeed = -maxSpeed/climbingModeSlowDown;
             }
         }
     }
