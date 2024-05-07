@@ -31,11 +31,15 @@ public class Wall extends LevelTile {
             else{
                 type = "4";
             }
+            
             if(textureNum == 1){
                 textureName = "StoneTexture" + type;
             }
             else if(textureNum == 2){
                 textureName = "CementTexture" + type;
+            }
+            else if(textureNum == 3){
+                textureName = "StoneArrowTexture";
             }
 
             String fileName = "Textures/" + textureName + ".png";

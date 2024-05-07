@@ -50,11 +50,14 @@ public class Level {
         isWindy = false;
         for (int[] curRow : this.levelLayout) {
             for (int curBox : curRow) {
-                if (curBox == 11) {
+                if (curBox == 1){
+                    levelTiles.add(new Wall (xPos, yPos, 32, 32, panel, 2));
+                }
+                else if (curBox == 11) {
                     levelTiles.add(new Wall (xPos, yPos, 32, 32, panel, 1));
                 }
-                else if (curBox == 1){
-                    levelTiles.add(new Wall (xPos, yPos, 32, 32, panel, 2));
+                else if (curBox == 12) {
+                    levelTiles.add(new Wall (xPos, yPos, 32, 32, panel, 3));
                 }
                 else if (curBox == 2) {
                     grabbables.add(new Grabbable(xPos, yPos, 32, 32, panel, 1));
