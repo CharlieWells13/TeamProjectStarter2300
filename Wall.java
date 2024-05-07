@@ -8,7 +8,7 @@ import java.awt.Rectangle;
 
 public class Wall extends LevelTile {
 
-    BufferedImage wallTexture;
+    private BufferedImage wallTexture;
 
     public Wall(int x, int y, int width, int height, gamePanel panel, int textureNum){
         super(x, y, width, height, panel);
@@ -31,7 +31,7 @@ public class Wall extends LevelTile {
             else{
                 type = "4";
             }
-            
+
             if(textureNum == 1){
                 textureName = "StoneTexture" + type;
             }
