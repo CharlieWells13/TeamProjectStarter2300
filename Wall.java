@@ -41,6 +41,9 @@ public class Wall extends LevelTile {
             else if(textureNum == 3){
                 textureName = "StoneArrowTexture";
             }
+            else if(textureNum == 4){
+                textureName = "rock1";
+            }
 
             String fileName = "Textures/" + textureName + ".png";
             wallTexture = ImageIO.read(new File(fileName));

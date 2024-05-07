@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class gamePanel extends JPanel implements ActionListener{
 
-    private int NUM_LEVELS = 9;     // number of levels in the game (IMPORTANT THIS IS ACCURATE)
+    private int NUM_LEVELS = 12;     // number of levels in the game (IMPORTANT THIS IS ACCURATE)
     
     private Player player;
 

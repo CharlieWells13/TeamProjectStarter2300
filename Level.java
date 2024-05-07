@@ -7,7 +7,7 @@ public class Level {
 
     private int levelNum;
     private String backgroundName;
-    private Boolean isWindy;
+    public Boolean isWindy = false;
 
     public int[][] levelLayout = new int[25][25];
     private ArrayList<LevelTile> levelTiles = new ArrayList<LevelTile>();
@@ -16,7 +16,12 @@ public class Level {
     public Level(int levelNum, gamePanel panel){
         this.panel = panel;
         this.levelNum = levelNum;
-        this.backgroundName = "Backgrounds/Background" + levelNum + ".png";
+        if(levelNum > 8){
+            this.backgroundName = "Backgrounds/Background" + levelNum + ".gif";
+        }
+        else{
+            this.backgroundName = "Backgrounds/Background" + levelNum + ".png";
+        }
     }
 
     // returns array of level tiles
@@ -59,8 +64,14 @@ public class Level {
                 else if (curBox == 12) {
                     levelTiles.add(new Wall (xPos, yPos, 32, 32, panel, 3));
                 }
+                else if (curBox == 13) {
+                    levelTiles.add(new Wall (xPos, yPos, 32, 32, panel, 4));
+                }
                 else if (curBox == 2) {
                     grabbables.add(new Grabbable(xPos, yPos, 32, 32, panel, 1));
+                }
+                else if (curBox == 22) {
+                    grabbables.add(new Grabbable(xPos, yPos, 32, 32, panel, 2));
                 }
                 else if (curBox == 6) {
                     levelTiles.add(new Bouncer (xPos, yPos, 32, 32, panel));
@@ -74,8 +85,9 @@ public class Level {
                 else if (curBox == 9) {
                     levelTiles.add(new IceBlock(xPos, yPos, 32, 32, panel));
                 }
-                else if (curBox == 22){
+                else if (curBox == 42){
                     isWindy = true;
+                    //System.out.println("Here");
                 }
                 xPos = xPos + 32;
             }

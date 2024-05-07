@@ -29,7 +29,6 @@ public class LevelLoader {
             currentRow++; //increments current row
         }
         sc.close();
-
         level.setLevelLayout(levelLayout);
     }
 }

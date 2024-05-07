@@ -18,7 +18,7 @@ public class Grabbable extends LevelTile {
                 textureName = "StoneClimbableTexture";
             }
             else if(textureNum == 2){
-                //textureName = "CementClimableTexture"; (doesnt exist yet)
+                textureName = "ClimbingIce";
             }
 
             String fileName = "Textures/" + textureName + ".png";
