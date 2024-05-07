@@ -228,6 +228,9 @@ public class Player {
         hitBox.x = x;
         hitBox.y = y;
     }
+    public boolean lastFacing() {
+        return lastFacedRight;
+    }
 
     // Left and Right Movement
     public void HorizontalMovement(){
