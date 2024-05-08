@@ -190,7 +190,7 @@ public class Player {
                 toggleOn();
             }
             isWindy = curLevel.isWindy();
-            System.out.println(isWindy);
+            //System.out.println(isWindy);
         }
         else if (y > 795) {
             panel.setLevel(curLevelNum - 1);
@@ -199,7 +199,7 @@ public class Player {
                 toggleOn();
             }
             isWindy = curLevel.isWindy();
-            System.out.println(isWindy);
+            //System.out.println(isWindy);
 
         }
     }
