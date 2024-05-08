@@ -10,12 +10,12 @@ to run the game, run the file Main.java
 
 # BASIC CONTROLS
 
-W - Jump
-A - Move left
-D - Move right
-S- fall fast while in air
-Q - Toggle to climbing mode over climbable surface
-E - Toggle to release climbing
+- W - Jump
+- A - Move left
+- D - Move right
+- S - fall fast while in air
+- Q - Toggle to climbing mode over climbable surface
+- E - Toggle to release climbing
 
 # TIPS
 - You progress in the game by moving up screens. Essentially, for each screen your goal is to get to the top of the screen and then get to the next one via either jumping or climbing
